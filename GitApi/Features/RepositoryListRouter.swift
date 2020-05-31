@@ -21,7 +21,7 @@ extension RepositoryListRouter {
     class func createModule(using navigationController: UINavigationController) -> UIViewController {
         let router = RepositoryListRouter()
         let presenter = RepositoryListPresenter()
-        let view = RepositoryListViewController(nibName: "RepositoryListViewController", bundle: Bundle.main)
+        let view = RepositoryListViewController()
         let interactor = RepositoryListInteractor()
         
         presenter.interactor = interactor

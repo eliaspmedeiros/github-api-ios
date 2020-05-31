@@ -16,21 +16,26 @@ protocol RepositoryListRouterInterface {
 
 // presenter -> view
 protocol RepositoryListViewInterface: AnyObject {
-    func reload(title: String)
+    func reload()
+    func reload(indexes: [IndexPath])
+    func showActivityIndicator()
+    func hideActivityIndicator()
 }
 
 // view -> presenter
 protocol RepositoryListModuleInterface {
     func viewDidLoad()
+    func refreshAction()
 }
 
 // presenter -> interactor
 protocol RepositoryListInteractorInput {
-    func fetchData()
+    func fetchData(forPage: Int)
 }
 
 // interactor -> presenter
 protocol RepositoryListInteractorOutput: AnyObject {
-    func dataFetched(_: RepositoryListModel)
+    func dataFetched(_: RepositoryListModel, forPage: Int)
+    func fetchRequestIgnored(onPage: Int)
     func error(message: String)
 }

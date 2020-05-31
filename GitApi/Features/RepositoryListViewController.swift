@@ -9,21 +9,59 @@
 import UIKit
 
 class RepositoryListViewController: UIViewController {
-    var presenter: RepositoryListModuleInterface!
+    typealias Presenter = RepositoryListModuleInterface & UITableViewDataSource & UITableViewDataSourcePrefetching
+    var presenter: Presenter!
 
-    @IBOutlet weak var label: UILabel!
+    var tableView: UITableView? {
+        view as? UITableView
+    }
+
+    private var refreshControl = UIRefreshControl()
 
     // MARK: life cycle
+    override func loadView() {
+        view = UITableView()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         presenter.viewDidLoad()
+
+        tableView?.register(RespositoryTableViewCell.self, forCellReuseIdentifier: RespositoryTableViewCell.cellIdentifier)
+        tableView?.delegate = self
+        tableView?.dataSource = presenter
+        tableView?.prefetchDataSource = presenter
+        tableView?.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
     }
 
+
+    @objc func onRefresh() {
+        presenter.refreshAction()
+    }
 }
 
 extension RepositoryListViewController: RepositoryListViewInterface {
-    func reload(title: String) {
-        label.text = title
+    func reload() {
+        tableView?.reloadData()
+    }
+
+    func reload(indexes: [IndexPath]) {
+        tableView?.reloadRows(at: indexes, with: .fade)
+    }
+
+    func showActivityIndicator() {
+
+    }
+
+    func hideActivityIndicator() {
+        refreshControl.endRefreshing()
+    }
+}
+
+extension RepositoryListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
 }

@@ -6,10 +6,13 @@ target 'GitApi' do
   use_frameworks!
 
   # Pods for GitApi
+  pod 'Nuke'
 
   target 'GitApiTests' do
     inherit! :search_paths
-    # Pods for testing
+
+    pod 'Quick'
+    pod 'Nimble'
   end
 
   target 'GitApiUITests' do

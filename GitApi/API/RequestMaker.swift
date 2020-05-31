@@ -59,12 +59,12 @@ struct APIRequestMaker: RequestMaker {
     let apiBase: String = "https://api.github.com"
 
     enum GitHubEndpoints: URLProvider {
-        case list(language: String, sorting: String)
+        case list(language: String, page: Int)
 
         var url: String {
             switch self {
-            case .list(let language, let sorting):
-                return "search/repositories?q=language:\(language)&sort=\(sorting)"
+            case .list(let language, let page):
+                return "search/repositories?q=language:\(language)&sort=stars&page=\(page)"
             }
         }
     }
