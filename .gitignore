@@ -1,0 +1,15 @@
+xcuserdata/
+IDEWorkspaceChecks.plist
+Pods/
+R.generated.swift
+
+# Fastlane
+**/fastlane/test_output
+**/fastlane/report.xml
+
+
+# .ipa
+Canal OFF Preview.ipa
+Canal OFF Preview.app.dSYM.zip
+
+.DS_Store
