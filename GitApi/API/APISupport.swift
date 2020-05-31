@@ -20,13 +20,12 @@ extension URLSession {
     func dataTask(with url: URL, result: @escaping (Result<(URLResponse, Data), Error>) -> Void) -> URLSessionDataTask {
         return dataTask(with: url) { (data, response, error) in
             if let error = error {
-                print("error 1 - :\(error.localizedDescription)")
                 result(.failure(error))
                 return
             }
             guard let response = response, let data = data else {
                 let error = NSError(domain: "error", code: 0, userInfo: nil)
-                print("error 2 - :\(error.localizedDescription)")
+               
                 result(.failure(error))
                 return
             }

@@ -9,6 +9,5 @@
 import UIKit
 
 extension UIImage {
-    // TODO: get a nice person placeholder
-    static let defaultPlaceholder = UIImage()
+    static let defaultPlaceholder = UIImage(named: "placeholder")
 }

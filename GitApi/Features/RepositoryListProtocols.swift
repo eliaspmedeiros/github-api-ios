@@ -17,14 +17,14 @@ protocol RepositoryListRouterInterface {
 // presenter -> view
 protocol RepositoryListViewInterface: AnyObject {
     func reload()
-    func reload(indexes: [IndexPath])
     func showActivityIndicator()
     func hideActivityIndicator()
+    func displayError(message: String)
 }
 
 // view -> presenter
 protocol RepositoryListModuleInterface {
-    func viewDidLoad()
+    func moduleDidLoad()
     func refreshAction()
 }
 

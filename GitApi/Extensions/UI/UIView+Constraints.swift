@@ -8,25 +8,25 @@
 
 import UIKit
 
-//public extension UIView {
-//    func constrainInside(parent parentView: UIView, withPadding padding: CGFloat = 0) {
-//        self.constrainInside(parent: parentView, withPadding: (padding, padding))
-//    }
-//
-//    func constrainInside(parent parentView: UIView, withPadding padding: (vertical: CGFloat, horizontal: CGFloat)) {
-//        constrainInside(parent: parentView, withPadding: (padding.horizontal, padding.vertical, padding.horizontal, padding.vertical))
-//    }
-//
-//    func constrainInside(parent parentView: UIView, withPadding padding: (left: CGFloat, top: CGFloat, right: CGFloat, bottom: CGFloat)) {
-//        let left = leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: padding.left)
-//        let top = topAnchor.constraint(equalTo: parentView.topAnchor, constant: padding.top)
-//        let right = trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -padding.right)
-//        let bottom = bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -padding.bottom)
-//
-//        translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([ left, top, right, bottom ])
-//    }
-//}
+public extension UIView {
+    func constrainInside(parent parentView: UIView, withPadding padding: CGFloat = 0) {
+        self.constrainInside(parent: parentView, withPadding: (padding, padding))
+    }
+
+    func constrainInside(parent parentView: UIView, withPadding padding: (vertical: CGFloat, horizontal: CGFloat)) {
+        constrainInside(parent: parentView, withPadding: (padding.horizontal, padding.vertical, padding.horizontal, padding.vertical))
+    }
+
+    func constrainInside(parent parentView: UIView, withPadding padding: (left: CGFloat, top: CGFloat, right: CGFloat, bottom: CGFloat)) {
+        let left = leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: padding.left)
+        let top = topAnchor.constraint(equalTo: parentView.topAnchor, constant: padding.top)
+        let right = trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -padding.right)
+        let bottom = bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -padding.bottom)
+
+        translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([ left, top, right, bottom ])
+    }
+}
 
 extension UIView {
     /// A shortcut to just anchor to top left

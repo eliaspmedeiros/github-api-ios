@@ -1,5 +1,5 @@
 //
-//  RespositoryTableViewCell.swift
+//  RepositoryTableViewCell.swift
 //  GitApi
 //
 //  Created by Elias Medeiros on 30/05/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RespositoryTableViewCell: UITableViewCell {
+class RepositoryTableViewCell: BaseTableViewCell {
     // MARK: components
     private let nameLabel: UILabel = {
         return $0
@@ -26,16 +26,30 @@ class RespositoryTableViewCell: UITableViewCell {
         return $0
     }(UILabel())
 
-    var customSubviews: [UIView] {
+    override var customSubviews: [UIView] {
         [nameLabel, starCountLabel, ownerPictureImageView, ownerNameLabel]
     }
 
-    // MARK: life cycle
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    // MARK: internal methods
+    func config(with model: RepositoryModel?) {
+        guard let model = model else {
+            clear()
+            return
+        }
 
-        customSubviews.forEach(self.addSubview)
+        accessibilityIdentifier = "repository cell"
 
+        nameLabel.text = model.name
+        starCountLabel.text = "\(model.starCount) ⭐️"
+        ownerPictureImageView.load(fromUrl: model.owner.picture, placeholder: .defaultPlaceholder)
+        ownerNameLabel.text = model.owner.name
+
+        nameLabel.accessibilityLabel = "Repositório \(model.name)"
+        starCountLabel.accessibilityLabel = "Possui \(model.starCount) estrelas"
+        ownerNameLabel.accessibilityLabel = "Proprietário chama-se \(model.owner.name)"
+    }
+
+    override func setupAutoLayout() {
         let defaultSideMargin: CGFloat = 14
         nameLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: defaultSideMargin, paddingLeft: defaultSideMargin)
         starCountLabel.anchor(top: nameLabel.bottomAnchor, left: nameLabel.leftAnchor, paddingTop: 10, paddingLeft: 0)
@@ -43,33 +57,11 @@ class RespositoryTableViewCell: UITableViewCell {
         ownerNameLabel.anchor(top: ownerPictureImageView.bottomAnchor, right: ownerPictureImageView.rightAnchor, paddingTop: 10, paddingRight: 0)
     }
 
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    override func prepareForReuse() {
+    override func clear() {
         nameLabel.text = nil
         starCountLabel.text = nil
         ownerPictureImageView.image = nil
         ownerNameLabel.text = nil
     }
-
-    // MARK: internal methods
-    func config(with model: RepositoryModel) {
-        nameLabel.text = model.name
-        starCountLabel.text = "\(model.starCount) ⭐️"
-        ownerPictureImageView.load(fromUrl: model.owner.picture, placeholder: .defaultPlaceholder)
-        ownerNameLabel.text = model.owner.name
-    }
-
-    // MARK: private methods
-
-
 }
 
-extension RespositoryTableViewCell {
-
-    // MARK: constants
-    static let cellIdentifier = "repo-cell"
-}

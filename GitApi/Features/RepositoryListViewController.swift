@@ -21,42 +21,57 @@ class RepositoryListViewController: UIViewController {
     // MARK: life cycle
     override func loadView() {
         view = UITableView()
+
+        tableView?.separatorStyle = .none
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        presenter.viewDidLoad()
+        presenter.moduleDidLoad()
+        setupTableView()
+        refreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
+        title = "Repositórios - Swift"
+    }
 
-        tableView?.register(RespositoryTableViewCell.self, forCellReuseIdentifier: RespositoryTableViewCell.cellIdentifier)
+    @objc func onRefresh() {
+        presenter.refreshAction()
+    }
+
+    private func setupTableView() {
+        tableView?.register(RepositoryTableViewCell.self, forCellReuseIdentifier: RepositoryTableViewCell.cellIdentifier)
+        tableView?.register(LoadingTableViewCell.self, forCellReuseIdentifier: LoadingTableViewCell.cellIdentifier)
         tableView?.delegate = self
         tableView?.dataSource = presenter
         tableView?.prefetchDataSource = presenter
         tableView?.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
-    }
-
-
-    @objc func onRefresh() {
-        presenter.refreshAction()
     }
 }
 
 extension RepositoryListViewController: RepositoryListViewInterface {
     func reload() {
+        tableView?.separatorStyle = .singleLine
         tableView?.reloadData()
     }
 
-    func reload(indexes: [IndexPath]) {
-        tableView?.reloadRows(at: indexes, with: .fade)
-    }
-
     func showActivityIndicator() {
-
+        
     }
 
     func hideActivityIndicator() {
         refreshControl.endRefreshing()
+    }
+
+    func displayError(message: String) {
+        let alert = UIAlertController(title: "Erro", message: message, preferredStyle: .alert)
+
+        let mainAction = UIAlertAction(title: "Ok", style: .default) { (_) in
+            alert.dismiss(animated: true)
+        }
+
+        alert.addAction(mainAction)
+
+        present(alert, animated: true)
     }
 }
 

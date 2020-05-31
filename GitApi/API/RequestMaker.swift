@@ -64,7 +64,7 @@ struct APIRequestMaker: RequestMaker {
         var url: String {
             switch self {
             case .list(let language, let page):
-                return "search/repositories?q=language:\(language)&sort=stars&page=\(page)"
+                return "search/repositories?q=language:\(language)&sort=stars&page=\(page)&per_page=100"
             }
         }
     }
