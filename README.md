@@ -41,7 +41,7 @@ Todos os protocolos denotam interação do **Presenter** com algum outro objeto,
 
 Mesmo sem as implementações, olhando apenas para os protocolos, é visível que existe uma reação a evento na **View**, na qual o **Presenter** é acionado: o método `func itemSelected(atRow: Int)`.
 
-Este método está implementado de maneira bem simples no **Presenter**:
+Este método está implementado de maneira bem simples no **Presenter**, apenas chamando o **Router**:
 ```
   func itemSelected(atRow row: Int) {
       if let repository = repositories[safe: row] {
@@ -90,7 +90,7 @@ extension RepositoryListRouter {
 
 Aqui também temos uma função de classe para criação do *módulo*, fazendo as inicializações e associações necessárias. O **Router** da lista conversa com um outro **Router**, o de detalhes.
 
-Este, por enquanto, só tem a responsabilidade de instanciar os objetos que compõe o módulo:
+Este, por enquanto, só tem a responsabilidade de instanciar os objetos que compõem o módulo:
 ```
 import UIKit
 
@@ -121,4 +121,4 @@ extension RepositoryDetailRouter {
 }
 ```
 
-Uma ação de voltar ou mesmo uma navegação para uma terceira tela poderia ser definita no protocolo `RepositoryDetailRouterInterface` e implementada na extension correspondente dentro deste **Router**.
+Uma ação de voltar ou mesmo uma navegação para uma terceira tela poderia ser definida no protocolo `RepositoryDetailRouterInterface` e implementada na extension correspondente dentro deste **Router**.
