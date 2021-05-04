@@ -40,6 +40,12 @@ extension RepositoryListPresenter: RepositoryListModuleInterface {
         nextPage = 1
         interactor?.fetchData(forPage: nextPage)
     }
+
+    func itemSelected(atRow row: Int) {
+        if let repository = repositories[safe: row] {
+            router?.navigateToRepositoryDetail(repoId: repository.id)
+        }
+    }
 }
 
 extension RepositoryListPresenter: RepositoryListInteractorOutput {

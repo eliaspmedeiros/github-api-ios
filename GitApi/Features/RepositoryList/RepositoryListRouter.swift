@@ -13,7 +13,12 @@ class RepositoryListRouter {
 }
 
 extension RepositoryListRouter: RepositoryListRouterInterface {
-    
+    func navigateToRepositoryDetail(repoId: Int) {
+        if let navigation = navigationController {
+            let viewController = RepositoryDetailRouter.createModule(using: navigation, andRepoId: repoId)
+            navigation.pushViewController(viewController, animated: true)
+        }
+    }
 }
 
 // MARK: builder

@@ -11,7 +11,7 @@ import Foundation
 // presenter -> router
 // world -> router
 protocol RepositoryListRouterInterface {
-    
+    func navigateToRepositoryDetail(repoId: Int)
 }
 
 // presenter -> view
@@ -26,6 +26,7 @@ protocol RepositoryListViewInterface: AnyObject {
 protocol RepositoryListModuleInterface {
     func moduleDidLoad()
     func refreshAction()
+    func itemSelected(atRow: Int)
 }
 
 // presenter -> interactor
